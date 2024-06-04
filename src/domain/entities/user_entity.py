@@ -6,8 +6,10 @@ class UserEntity(BaseModel):
     name: str
     email: str
     status: int
+    role: int
     
 class UserInput(BaseModel):
     name: str
     email: str
     status: int
+    role: int
