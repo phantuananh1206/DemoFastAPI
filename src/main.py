@@ -16,7 +16,7 @@ from starlette.middleware.authentication import AuthenticationMiddleware
 
 from fastapi_authz import CasbinMiddleware
 
-models.Base.metadata.create_all(bind=database.engine)
+# models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
 
@@ -42,20 +42,4 @@ adapter = casbin_sqlalchemy_adapter.Adapter(os.getenv("DATABASE_URL"))
 e = casbin.Enforcer('./rbac_model.conf', adapter)
 
 app.add_middleware(CasbinMiddleware, enforcer=e)
-# enforcer = casbin.Enforcer('./rbac_model.conf', './rbac_policy.csv')
-# app.add_middleware(CasbinMiddleware, enforcer=enforcer)
 app.add_middleware(AuthenticationMiddleware, backend=BasicAuth())
-
-
-@app.get('/')
-async def index():
-    return "If you see this, you have been authenticated."
-
-
-@app.get('/dataset1/protected')
-async def auth_test():
-    return "You must be alice to see this."
-
-@app.get('/dataset2/resource2')
-async def auth_test():
-    return "You must be alice to see this."

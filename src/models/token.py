@@ -5,13 +5,11 @@ from . import Base
 from src.constants import DB_NAMING_CONVENTION
 metadata = MetaData(naming_convention=DB_NAMING_CONVENTION)
 
-class User(Base):
-    __tablename__ = "users"
+class Token(Base):
+    __tablename__ = "tokens"
     
     metadata
     id = Column(Integer, primary_key = True, index = True)
-    name = Column(String(255), index = True)
-    email = Column(String(255), unique = True, index = True)
-    hashed_password = Column(String(255))
-    status = Column(Integer, default = 0)
-    role = Column(Integer, default = 0)
+    access_token = Column(String(255))
+    refresh_token = Column(String(255))
+    status = Column(Boolean, default = True)
