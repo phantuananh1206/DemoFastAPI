@@ -16,6 +16,9 @@ class UserRepository:
     def findUserById(self, user_id: int):
         return self.session.query(User).filter(User.id == user_id).first()
     
+    def findUserByEmail(self, email: str):
+        return self.session.query(User).filter(User.email == email).first()
+    
     def create(self, db_user: UserInput) -> UserEntity:
         self.session.add(db_user)
         self.session.commit()

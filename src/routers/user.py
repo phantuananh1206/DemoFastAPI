@@ -1,10 +1,9 @@
 from typing import List
 
 from fastapi import APIRouter, Depends, status
-from pydantic import UUID4
 from sqlalchemy.orm import Session
 from src.database import get_db
-from src.domain.entities.user_entity import UserEntity, UserInput
+from src.domain.entities.user_entity import UserEntity, UserInput, UserLogin, UserAuthenticated
 from src.domain.services.user_service import UserService
 
 
@@ -21,7 +20,7 @@ def get_regions(session: Session = Depends(get_db)) -> List[UserEntity]:
 @router.post("/register", status_code=status.HTTP_201_CREATED, response_model=UserEntity)
 def register(data: UserInput, session: Session = Depends(get_db)):
     _service = UserService(session)
-    return _service.create(data)
+    return _service.register(data)
 
 @router.put("/{user_id}", status_code=status.HTTP_200_OK, response_model=UserEntity)
 def update(user_id: int, data: UserInput, session: Session = Depends(get_db)):
@@ -32,3 +31,8 @@ def update(user_id: int, data: UserInput, session: Session = Depends(get_db)):
 def delete(user_id: int, session: Session = Depends(get_db)):
     _service = UserService(session)
     return _service.delete(user_id)
+
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=UserAuthenticated)
+def register(data: UserLogin, session: Session = Depends(get_db)):
+    _service = UserService(session)
+    return _service.login(data)
