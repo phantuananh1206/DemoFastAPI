@@ -12,8 +12,6 @@ class UserInput(BaseModel):
     name: str
     email: EmailStr
     hashed_password: str = Field(min_length = 6)
-    status: int
-    role: int
     
 class UserLogin(BaseModel):
     email: str
