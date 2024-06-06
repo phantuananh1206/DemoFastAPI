@@ -21,6 +21,8 @@ bcrypt = "^4.1.3"
 pyjwt = "^2.8.0"
 passlib = "^1.7.4"
 python-jose = "^3.3.0"
+boto3 = "^1.34.120"
+jinja2 = "^3.1.4"
 
 
 [build-system]
